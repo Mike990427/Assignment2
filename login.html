@@ -4,21 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />  
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>      			
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="../css/resources.css" type="text/css" rel="stylesheet" />
+    <link href="css/signup.css" type="text/css" rel="stylesheet" />
+    <title>Login page</title>
 </head>
 <body>
-    <style>
-        body {
-            background-image: url(../images/background.png);
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-size: cover;
-        }
-    </style>
+    
     <div id="head_wrap">
         <header>
             <nav class="navbar navbar-inverse navbar-fixed-top top_menu" role="navigation">	
@@ -31,29 +24,62 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="index.html" class="navbar-brand">Project VI</a>
+                <a href="index.html" class="navbar-brand">Project Website</a>
                 </div>
                 <!-- Side Menu - collapses to small menu on small screens -->
                 <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav navbar-right s_menu">
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="project_plan.html">Plan</a></li>
-                        <li><a href="logbook.html">Log Book</a></li>
+                    <ul class="nav navbar-nav navbar-fixed-top_menu">
                         <li><a href="login.html">Log in</a></li>
-                        <li><a href="request_access.html">Signup</a></li>
-                        <li><a href="../PHP/member.php">Elevator Control</a></li>
-                        <li><a href="resources.html">Resources</a></li>
+                        <li><a href="signup.html">Sign Up</a></li>
                     </ul>
                 </div>
             </nav>	
         </header>
     </div>
-    <div id="connections">
-        <iframe src="https://onedrive.live.com/embed?cid=F3FB2E700E3C7C4C&resid=F3FB2E700E3C7C4C%2162278&authkey=APOV2uOIgO9Nq3Y&em=2" width="1100" height="600" frameborder="0" scrolling="no"></iframe>
-    </div>
-    <br><br><br><br><br>
+
+    <br><br><br><br>
+
+
+    <form action="authenticate.php" method="post" id="access">
+        <fieldset>
+            <legend>Login</legend>
+            <br>
+            <div class="rw">
+                <label id="userlabel" for="user" class="text_label">Username: </label>
+                <input id="user" class="text_input" type="text" name="username" required />
+            </div>
+            <p id="erru"></p>
+            <script src="usernameck.js"></script>
+            <br><br>
+
+            <div class="rw">
+                <label for="pass" class="text_label">Password:</label>
+                <input id="passwd" class="text_input passwd" type="password" name="password" required />
+            </div>
+            <p id="errp"></p>
+            <script src="passwordck.js"></script>
+            <br><br>
+
+            <input id="subbtn" type="submit" value="login!"  />
+        </fieldset>
+    </form>
+
+    <br><br><br><br>
+
+    <div id="hfooter_wrap">
     <footer>
-    <p>Copyright &copy Dhrup Patel;Alex Wu;Mike Wu</p>
+        <br><br><br><br>
+
+        <p>Copyright &copy MikeWu;</p>
+
     </footer>
+    </div>
+
+    
+
+
+    
+
+
 </body>
 </html>
