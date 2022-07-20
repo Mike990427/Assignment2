@@ -7,7 +7,7 @@
         //echo $newpassword;
     
         //reading existing credentials
-        $saved = file_get_contents('json/saved.json');
+        $saved = file_get_contents('../json/saved.json');
         $tempArray = json_decode($saved, true);
 
         $newCredentials["username"] = $username;
@@ -18,7 +18,7 @@
 
         $newsaved = json_encode($tempArray,true);
 
-        file_put_contents('json/saved.json',$newsaved);
+        file_put_contents('../json/saved.json',$newsaved);
     
         /*foreach ( $tempArray as $item => $value){
             echo $item . ':' .$value;
@@ -27,7 +27,7 @@
 
     
 
-    echo '<p>Please click <a href=\'login.html\'>here</a> to go to the login page</p>'; 
+    echo '<p>Please click <a href=\'../login.html\'>here</a> to go to the login page</p>'; 
     
     
     

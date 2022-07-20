@@ -7,9 +7,12 @@
     $authenticated = FALSE; 
 
     // Checking input credentiasl against a flat file (used to store authenticated user credentials)
+    if( $username == 'Assignment2' && $password == 'Ese1234567' ){
+        $authenticated = true;
+    }
 
-    if(file_exists('json/saved.json')){
-        $contents = file_get_contents('json/saved.json');
+    if(file_exists('../json/saved.json')){
+        $contents = file_get_contents('../json/saved.json');
         $usersArray = json_decode($contents, true);                 // true means php array
 
         foreach ($usersArray as $entry => $data)  {
