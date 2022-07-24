@@ -38,7 +38,7 @@
         echo '<h2>Congrats ' . $username . ' you are authenticated</h2>';
         echo '<p>Please click <a href=\'member.php\'>here</a> to go to the members only page</p>';
     } else {
-        echo '<p>You are not authenticated. Please click <a href=\'login.html\'>here</a> to go to the login page</p>'; 
+        echo '<p>You are not authenticated. Please click <a href=\'../login.html\'>here</a> to go to the login page</p>'; 
     }
 
 
