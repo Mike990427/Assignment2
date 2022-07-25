@@ -35,9 +35,79 @@ function update(string $path, string $user, string $password, string $tablename,
         $db->commit();
     }catch (Exception $e) {
         echo $e->getMessage();
+        $db->rollback();
     }
 
 }
+
+// Create
+function insert($path, $user, $password, $node_ID, $new_status, $new_Floor) {
+    try{
+        $db = connect($path, $user, $password);
+        $query = 'INSERT INTO elevatorNetwork(date, time, status, currentFloor, requestedFloor, otherInfo) VALUES
+        (:date, :time, :status, :currentFloor, :requestedFloor, :otherInfo)';
+        
+        $querytime = "SELECT CURRENT_TIME()"; 
+        $result = $db->query($querytime); 
+        $curtime = $result->fetch()['CURRENT_TIME()'];
+        var_dump($curtime);
+
+        $querydate = 'SELECT CURRENT_DATE()';
+        $result = $db->query($querydate);
+        $curdate = $result->fetch()['CURRENT_DATE()'];
+        var_dump($curdate);
+
+
+        $params = [
+            'date' => $curdate,
+            'time' => $curtime,
+            'status' => $new_status, 
+            'currentFloor' => 1,
+            'requestedFloor' => 1, 
+            'otherInfo' => "na"
+        ];
+        $statement = $db->prepare($query);
+        $result = $statement->execute($params); 
+        
+        //Retruen number of rows that were updated
+        $count = $statement->rowCount();
+        if($count == 0){
+            throw new Exception('<br/><br/>Error - Database unchaged !!!<br/><br/>');
+        }
+        echo "<br/><br/>Success - Database Updated<br/><br/>";
+        $db->commit();
+    }catch (Exception $e) {
+        echo $e->getMessage();
+        $db->rollback();
+
+    }
+
+
+
+}
+
+
+function delete($path, $user, $password, $tablename, $node_ID, $new_status, $new_Floor) {
+    try{
+        $db = connect($path, $user, $password);
+        $query = 'DELETE FROM ' . $tablename . ' WHERE nodeID = :id' ;    // Note: Risks of SQL injection
+        $statement = $db->prepare($query); 
+        $statement->bindValue('id', $node_ID); 
+        $statement->execute();                      // Execute prepared statement
+        $count = $statement->rowCount();
+        if($count == 0){
+            throw new Exception('<br/><br/>Error - Database unchaged !!!<br/><br/>');
+        }
+        echo "<br/><br/>Success - Database Updated<br/><br/>";
+        $db->commit();
+    }catch (Exception $e) {
+        echo $e->getMessage();
+        $db->rollback();
+    }
+
+}
+
+
 
 function showtable(string $path, string $user, string $password, $tablename) {
     $db = connect($path, $user, $password); 
@@ -57,7 +127,13 @@ if(isset($_POST['status'])) { $new_status = $_POST['status']; }
 if(isset($_POST['currentFloor'])) { $new_Floor = $_POST['currentFloor']; }
 
 if(isset($_POST['update'])) {
-        update($path, $user, $password, $tablename, $node_ID, $new_status, $new_Floor);
+    update($path, $user, $password, $tablename, $node_ID, $new_status, $new_Floor);
+}
+elseif(isset($_POST['insert'])) {
+    insert($path, $user, $password, $node_ID, $new_status, $new_Floor);
+}
+elseif(isset($_POST['delete'])) {
+    delete($path, $user, $password, $tablename, $node_ID, $new_status, $new_Floor);
 }
 
 // Display content of database
@@ -78,6 +154,8 @@ echo "<h1>Do you wanna <a href='logout.php'>logout</a>? </h1>";
             status: <input type='text' name='status' /><br/>
             currentFloor: <input type='text' name='currentFloor' /><br/>
             <input type="submit" value="UPDATE" name="update"/>
+            <input type="submit" value="INSERT" name="insert"/>
+            <input type="submit" value="DELETE" name="delete"/>
         </form>
     </body>
 </html>
